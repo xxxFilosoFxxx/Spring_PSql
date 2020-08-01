@@ -1,0 +1,32 @@
+.navbar-brand {
+    font-weight: bolder;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+#headimage {
+    background: url(../Images/spring-logo.png) no-repeat center top;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+    padding-top: 20px;
+    text-align: center;
+    background-attachment: relative;
+    background-position: center center;
+    min-height: 700px;
+    width: 70%;
+
+    background-size: 100%;
+}
+
+#headimage h1 {
+    margin-top: 50px;
+    color: dark;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 4px;
+}
+
+.w h4 {
+    font-size: 30px;
+}
