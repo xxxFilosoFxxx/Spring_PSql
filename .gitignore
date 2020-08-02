@@ -1,0 +1,14 @@
+.idea
+.gradle
+build/
+gradle/
+out/
+
+*.iws
+*.iml
+*.ipr
+
+gradlew
+gradlew.bat
+!**/src/main/**/out/
+!**/src/test/**/out/
