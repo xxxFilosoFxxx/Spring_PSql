@@ -16,12 +16,8 @@ import java.util.Optional;
 @Controller
 public class TableController {
 
-    private final JobRepository jobRepository;
-
     @Autowired
-    public TableController(JobRepository jobRepository) {
-        this.jobRepository = jobRepository;
-    }
+    private JobRepository jobRepository;
 
     @GetMapping("/table")
     public String table(Model model) {

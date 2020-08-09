@@ -1,4 +1,4 @@
-# Project using Vert.x and PostgreSql
+# Project using Spring Framework and PostgreSql
 
 ## Project assembled with gradle 6.3
 
