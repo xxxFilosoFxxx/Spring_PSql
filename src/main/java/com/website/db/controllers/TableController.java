@@ -5,11 +5,9 @@ import com.website.db.repo.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -20,7 +18,7 @@ public class TableController {
     private JobRepository jobRepository;
 
     @GetMapping("/table")
-    public String table(Model model) {
+    public String table(Model model) throws SQLException {
         Iterable<Job> jobs = jobRepository.findAll();
         model.addAttribute("jobs", jobs);
         return "table";
@@ -33,14 +31,14 @@ public class TableController {
 
     @PostMapping("/table/add")
     public String tablePostAdd(@RequestParam String name, @RequestParam String place,
-                               Model model) {
+                               Model model) throws SQLException {
         Job job = new Job(name, place);
         jobRepository.save(job);
         return "redirect:/table";
     }
 
     @GetMapping("/table/{id}")
-    public String tableInfo(@PathVariable(value = "id") long jobId, Model model) {
+    public String tableInfo(@PathVariable(value = "id") long jobId, Model model) throws SQLException {
         if(!jobRepository.existsById(jobId)) {
             return "redirect:/table";
         }
@@ -52,7 +50,7 @@ public class TableController {
     }
 
     @GetMapping("/table/{id}/edit")
-    public String tableEdit(@PathVariable(value = "id") long jobId, Model model) {
+    public String tableEdit(@PathVariable(value = "id") long jobId, Model model) throws SQLException {
         if(!jobRepository.existsById(jobId)) {
             return "redirect:/table";
         }
@@ -66,7 +64,7 @@ public class TableController {
 
     @PostMapping("/table/{id}/edit")
     public String tablePostEdit(@PathVariable(value = "id") long jobId, @RequestParam String name,
-                                @RequestParam String place, Model model) {
+                                @RequestParam String place, Model model) throws SQLException {
         Job job = jobRepository.findById(jobId).orElseThrow();
         job.setName(name);
         job.setPlace(place);
@@ -75,7 +73,7 @@ public class TableController {
     }
 
     @PostMapping("/table/{id}/remove")
-    public String tablePostRemove(@PathVariable(value = "id") long jobId, Model model) {
+    public String tablePostRemove(@PathVariable(value = "id") long jobId, Model model) throws SQLException {
         Job job = jobRepository.findById(jobId).orElseThrow();
         jobRepository.delete(job);
         return "redirect:/table";
