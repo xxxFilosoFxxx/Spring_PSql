@@ -1,6 +1,7 @@
 package com.website.db.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Job {
@@ -8,13 +9,15 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    // TODO:
+   // @OneToMany(mappedBy = "id_job")
+   // private Set<Taxpayer> id_taxpayer;
 
     private String name, place;
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }

@@ -19,7 +19,6 @@ public class LoginController {
 
     @Controller
     static class FaviconController {
-
         @GetMapping("favicon.ico")
         @ResponseBody
         void returnNoFavicon() {

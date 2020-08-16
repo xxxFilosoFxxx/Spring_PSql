@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<role name="admin"
+      password="admin">
+</role>
+
+<role name="test_admin"
+      encrypted="true"
+      password="admin">
+</role>
+
+<database name="server" is-template="false" allow-conns="true" sql-disabled="true">
+	<role name="test_admin"/>
+	<appended-sql><![CDATA[DROP ROLE admin]]></appended-sql>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="test_bd" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<table name="taxpayer">
+	<schema name="test_bd"/>
+	<role name="postgres"/>
+	<position x="400" y="320"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="char" length="0"/>
+	</column>
+	<column name="surname" not-null="true" default-value="IVANOV">
+		<type name="char" length="0"/>
+	</column>
+	<column name="sername">
+		<type name="char" length="0"/>
+	</column>
+	<column name="date" default-value="CURRENT_DATE">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="taxpayer_pk" type="pk-constr" table="test_bd.taxpayer">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="job">
+	<schema name="test_bd"/>
+	<role name="postgres"/>
+	<position x="969" y="321"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="char" length="0"/>
+	</column>
+	<column name="place">
+		<type name="char" length="0"/>
+	</column>
+	<constraint name="job_pk" type="pk-constr" table="test_bd.job">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_taxpayer" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="taxpayer_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="income">
+	<schema name="test_bd"/>
+	<role name="postgres"/>
+	<position x="960" y="478"/>
+	<column name="amount" default-value="0.00">
+		<type name="float" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_taxpayer" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="income_uq" index="1"/>
+		<object name="taxpayer_fk" index="0"/>
+	</customidxs>
+</table>
+
+<table name="dues">
+	<schema name="test_bd"/>
+	<role name="postgres"/>
+	<position x="953" y="645"/>
+	<column name="income_taxes" default-value="SELECT (amount*0.17) FROM test_bd.income, test_bd.dues  WHERE test_bd.income.id_taxpayer = test_bd.dues.id_taxpayer">
+		<type name="float" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_taxpayer" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="dues_uq" index="1"/>
+		<object name="taxpayer_fk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="income_has_one_taxpayer" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#52e32b"
+	 src-table="test_bd.taxpayer"
+	 dst-table="test_bd.income"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="dues_has_one_taxpayer" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#14dad2"
+	 src-table="test_bd.taxpayer"
+	 dst-table="test_bd.dues"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="taxpayer_has_many_job" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f45373"
+	 src-table="test_bd.taxpayer"
+	 dst-table="test_bd.job"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+</dbmodel>

@@ -29,8 +29,8 @@
             </div>
 
             <div class="col">
-                <a th:href="'/table/' + ${element.id} + '/edit'" class="btn btn-warning ">Редактировать</a><br><br>
-                <form th:action="'/table/' + ${element.id} + '/remove'" method="post">
+                <a th:href="'/table/job/' + ${element.id} + '/edit'" class="btn btn-warning ">Редактировать</a><br><br>
+                <form th:action="'/table/job/' + ${element.id} + '/remove'" method="post">
                     <button class="btn btn-warning" type="submit">Удалить</button>
                 </form>
             </div>
