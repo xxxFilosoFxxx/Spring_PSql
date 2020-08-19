@@ -1,8 +1,8 @@
 package com.website.db.repo;
 
-import com.website.db.models.Taxpayer;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.website.db.models.TaxpayerEntity;
+import org.springframework.data.repository.CrudRepository;
 
-public interface TaxpayerRepository extends JpaRepository<Taxpayer, Long> {
+public interface TaxpayerRepository extends CrudRepository<TaxpayerEntity, Long> {
 
 }

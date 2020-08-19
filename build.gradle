@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.website'
-version = '1.6-SNAPSHOT'
+version = '1.7-SNAPSHOT'
 sourceCompatibility = '13'
 mainClassName = 'com.website.db.DbApplication'
 
@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'javax.xml.bind:jaxb-api'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

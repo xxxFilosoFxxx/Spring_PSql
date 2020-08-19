@@ -41,8 +41,10 @@ ALTER TABLE test_bd.job OWNER TO postgres;
 -- object: test_bd.income | type: TABLE --
 -- DROP TABLE IF EXISTS test_bd.income CASCADE;
 CREATE TABLE test_bd.income(
+    id bigint NOT NULL,
 	amount double precision DEFAULT 0.00,
-	id_taxpayer bigint
+	id_taxpayer bigint,
+    CONSTRAINT income_pk PRIMARY KEY (id)
 
 );
 -- ddl-end --
@@ -52,8 +54,10 @@ ALTER TABLE test_bd.income OWNER TO postgres;
 -- object: test_bd.dues | type: TABLE --
 -- DROP TABLE IF EXISTS test_bd.dues CASCADE;
 CREATE TABLE test_bd.dues(
+    id bigint NOT NULL,
 	income_taxes double precision DEFAULT 0.00, --(SELECT (amount*0.17) FROM test_bd.income, test_bd.dues  WHERE test_bd.income.id_taxpayer = test_bd.dues.id_taxpayer),
-	id_taxpayer bigint
+	id_taxpayer bigint,
+    CONSTRAINT dues_pk PRIMARY KEY (id)
 
 );
 -- ddl-end --

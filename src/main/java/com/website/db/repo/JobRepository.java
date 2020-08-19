@@ -1,6 +1,6 @@
 package com.website.db.repo;
 
-import com.website.db.models.Job;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.website.db.models.JobEntity;
+import org.springframework.data.repository.CrudRepository;
 
-public interface JobRepository extends JpaRepository<Job, Long> {}
+public interface JobRepository extends CrudRepository<JobEntity, Long> {}

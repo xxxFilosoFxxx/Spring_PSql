@@ -80,12 +80,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="test_bd"/>
 	<role name="postgres"/>
 	<position x="960" y="478"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
 	<column name="amount" default-value="0.00">
 		<type name="float" length="0"/>
 	</column>
+	<constraint name="income_pk" type="pk-constr" table="test_bd.income">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_taxpayer" index="1"/>
+		<object name="id_taxpayer" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -98,12 +104,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="test_bd"/>
 	<role name="postgres"/>
 	<position x="953" y="645"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
 	<column name="income_taxes" default-value="SELECT (amount*0.17) FROM test_bd.income, test_bd.dues  WHERE test_bd.income.id_taxpayer = test_bd.dues.id_taxpayer">
 		<type name="float" length="0"/>
 	</column>
+	<constraint name="dues_pk" type="pk-constr" table="test_bd.dues">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_taxpayer" index="1"/>
+		<object name="id_taxpayer" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">

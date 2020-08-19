@@ -65,6 +65,7 @@
                             <h3>Date:</h3> <h4 th:text="${element.date}"/>
                         </p>
                         <a class="btn btn-info show-add" role="button">Подробнее »</a>
+                        <a th:href="'/table/' + ${element.id} + '/edit'" class="btn btn-info" role="button">Изменить »</a>
                     </div>
                 </div>
             </div>
@@ -130,6 +131,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
 <!--                    <div class="input-group mb-3">-->
 <!--                        <input type="text" name="name" placeholder="Введите Имя" class="form-control">-->
 <!--                    </div>-->
