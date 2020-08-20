@@ -1,17 +1,19 @@
 package com.website.db.models;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "dues", schema = "test_bd", catalog = "postgres")
-public class DuesEntity {
+@Table(name = "bank", schema = "test_bd", catalog = "postgres")
+public class BankEntity {
     private Long id;
-    private Double incomeTaxes;
-    private Long idTaxpayer;
+    private long cash;
+    private Long idJob;
     private Long idInstitutions;
-    private TaxpayerEntity taxpayerByIdTaxpayer;
+    private JobEntity jobByIdJob;
     private InstitutionsEntity institutionsByIdInstitutions;
+    private IncomeEntity incomesById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -25,23 +27,23 @@ public class DuesEntity {
     }
 
     @Basic
-    @Column(name = "income_taxes", nullable = false, columnDefinition = "0.0")
-    public Double getIncomeTaxes() {
-        return incomeTaxes;
+    @Column(name = "cash", nullable = false)
+    public long getCash() {
+        return cash;
     }
 
-    public void setIncomeTaxes(Double incomeTaxes) {
-        this.incomeTaxes = incomeTaxes;
+    public void setCash(long cash) {
+        this.cash = cash;
     }
 
     @Basic
-    @Column(name = "id_taxpayer", nullable = false, insertable = false, updatable = false)
-    public Long getIdTaxpayer() {
-        return idTaxpayer;
+    @Column(name = "id_job", nullable = false, insertable = false, updatable = false)
+    public Long getIdJob() {
+        return idJob;
     }
 
-    public void setIdTaxpayer(Long idTaxpayer) {
-        this.idTaxpayer = idTaxpayer;
+    public void setIdJob(Long idJob) {
+        this.idJob = idJob;
     }
 
     @Basic
@@ -58,29 +60,29 @@ public class DuesEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DuesEntity that = (DuesEntity) o;
+        BankEntity that = (BankEntity) o;
         return id == that.id &&
-                Objects.equals(incomeTaxes, that.incomeTaxes) &&
-                Objects.equals(idTaxpayer, that.idTaxpayer) &&
+                cash == that.cash &&
+                Objects.equals(idJob, that.idJob) &&
                 Objects.equals(idInstitutions, that.idInstitutions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, incomeTaxes, idTaxpayer, idInstitutions);
+        return Objects.hash(id, cash, idJob, idInstitutions);
     }
 
     @OneToOne
-    @JoinColumn(name = "id_taxpayer", referencedColumnName = "id")
-    public TaxpayerEntity getTaxpayerByIdTaxpayer() {
-        return taxpayerByIdTaxpayer;
+    @JoinColumn(name = "id_job", referencedColumnName = "id")
+    public JobEntity getJobByIdJob() {
+        return jobByIdJob;
     }
 
-    public void setTaxpayerByIdTaxpayer(TaxpayerEntity taxpayerByIdTaxpayer) {
-        this.taxpayerByIdTaxpayer = taxpayerByIdTaxpayer;
+    public void setJobByIdJob(JobEntity jobByIdJob) {
+        this.jobByIdJob = jobByIdJob;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_institutions", referencedColumnName = "id")
     public InstitutionsEntity getInstitutionsByIdInstitutions() {
         return institutionsByIdInstitutions;
@@ -88,5 +90,14 @@ public class DuesEntity {
 
     public void setInstitutionsByIdInstitutions(InstitutionsEntity institutionsByIdInstitutions) {
         this.institutionsByIdInstitutions = institutionsByIdInstitutions;
+    }
+
+    @OneToOne(mappedBy = "bankByIdBank")
+    public IncomeEntity getIncomesById() {
+        return incomesById;
+    }
+
+    public void setIncomesById(IncomeEntity incomesById) {
+        this.incomesById = incomesById;
     }
 }

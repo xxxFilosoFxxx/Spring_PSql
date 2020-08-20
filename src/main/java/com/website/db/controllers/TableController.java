@@ -1,7 +1,6 @@
 package com.website.db.controllers;
 
 import com.website.db.models.TaxpayerEntity;
-import com.website.db.repo.IncomeRepository;
 import com.website.db.repo.TaxpayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +16,6 @@ public class TableController {
 
     @Autowired
     private TaxpayerRepository taxpayerRepository;
-
-    @Autowired
-    private IncomeRepository incomeRepository;
 
     @GetMapping("/table")
     public String table(Model model) throws SQLException {
@@ -49,18 +45,6 @@ public class TableController {
         return "redirect:/table";
     }
 
-//    @GetMapping("/table/{id}")
-//    public String tableJobInfo(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
-//        if(!taxpayerRepository.existsById(taxpayerId)) {
-//            return "redirect:/table";
-//        }
-//        Optional<Taxpayer> taxpayer = taxpayerRepository.findById(taxpayerId);
-//        ArrayList<Taxpayer> res = new ArrayList<>();
-//        taxpayer.ifPresent(res::add);
-//        model.addAttribute("taxpayer", res);
-//        return "table-info";
-//    }
-
     @GetMapping("/table/{id}/edit")
     public String tableJobEdit(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         if(!taxpayerRepository.existsById(taxpayerId)) {
@@ -84,11 +68,4 @@ public class TableController {
         taxpayerRepository.save(taxpayer);
         return "redirect:/table";
     }
-
-//    @PostMapping("/table/job/{id}/remove")
-//    public String tableJobPostRemove(@PathVariable(value = "id") long jobId, Model model) throws SQLException {
-//        Job job = jobRepository.findById(jobId).orElseThrow();
-//        jobRepository.delete(job);
-//        return "redirect:/table";
-//    }
 }

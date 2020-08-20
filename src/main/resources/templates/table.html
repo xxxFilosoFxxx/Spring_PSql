@@ -64,7 +64,8 @@
                         <p class="card-text">
                             <h3>Date:</h3> <h4 th:text="${element.date}"/>
                         </p>
-                        <a class="btn btn-info show-add" role="button">Подробнее »</a>
+                        <a th:href="'/table/' + ${element.id}" class="btn btn-info" role="button">Подробнее »</a>
+<!--                        <a class="btn btn-info show-add" role="button">Подробнее »</a>-->
                         <a th:href="'/table/' + ${element.id} + '/edit'" class="btn btn-info" role="button">Изменить »</a>
                     </div>
                 </div>

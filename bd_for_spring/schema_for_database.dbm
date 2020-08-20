@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="43,129" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <role name="admin"
       password="admin">
@@ -29,7 +29,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="taxpayer">
 	<schema name="test_bd"/>
 	<role name="postgres"/>
-	<position x="400" y="320"/>
+	<position x="278" y="489"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -53,7 +53,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="job">
 	<schema name="test_bd"/>
 	<role name="postgres"/>
-	<position x="969" y="321"/>
+	<position x="744" y="272"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -79,7 +79,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="income">
 	<schema name="test_bd"/>
 	<role name="postgres"/>
-	<position x="960" y="478"/>
+	<position x="738" y="458"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
@@ -91,11 +91,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
+		<object name="id_bank" index="3"/>
 		<object name="id_taxpayer" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
+		<object name="bank_fk" index="3"/>
 		<object name="income_uq" index="1"/>
+		<object name="income_uq1" index="4"/>
 		<object name="taxpayer_fk" index="0"/>
 	</customidxs>
 </table>
@@ -103,11 +106,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="dues">
 	<schema name="test_bd"/>
 	<role name="postgres"/>
-	<position x="953" y="645"/>
+	<position x="731" y="695"/>
 	<column name="id" not-null="true">
 		<type name="bigint" length="0"/>
 	</column>
-	<column name="income_taxes" default-value="SELECT (amount*0.17) FROM test_bd.income, test_bd.dues  WHERE test_bd.income.id_taxpayer = test_bd.dues.id_taxpayer">
+	<column name="income_taxes" default-value="0.00">
 		<type name="float" length="0"/>
 	</column>
 	<constraint name="dues_pk" type="pk-constr" table="test_bd.dues">
@@ -160,5 +163,88 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<position x="0" y="0"/>
 	</label>
 </relationship>
+
+<table name="bank">
+	<schema name="test_bd"/>
+	<role name="postgres"/>
+	<position x="1192" y="302"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="cash" not-null="true" default-value="0">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="bank_pk" type="pk-constr" table="test_bd.bank">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_job" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="bank_uq" index="2"/>
+		<object name="job_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="bank_has_one_job" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3daea9"
+	 src-table="test_bd.job"
+	 dst-table="test_bd.bank"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="income_has_one_bank" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#6f6087"
+	 src-table="test_bd.bank"
+	 dst-table="test_bd.income"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="SET NULL"/>
+
+<table name="institutions">
+	<schema name="test_bd"/>
+	<role name="postgres"/>
+	<position x="1205" y="621"/>
+	<column name="id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="char" length="0"/>
+	</column>
+	<constraint name="new_table_pk" type="pk-constr" table="test_bd.institutions">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="institutions_has_many_bank" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e21229"
+	 src-table="test_bd.institutions"
+	 dst-table="test_bd.bank"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="SET NULL"/>
+
+<relationship name="dues_has_one_institutions" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3f2bf9"
+	 src-table="test_bd.institutions"
+	 dst-table="test_bd.dues"
+	 src-required="false" dst-required="false"
+	upd-action="CASCADE"
+	del-action="SET NULL"/>
 
 </dbmodel>

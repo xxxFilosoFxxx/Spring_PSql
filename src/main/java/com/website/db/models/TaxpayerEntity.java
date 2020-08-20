@@ -8,23 +8,23 @@ import java.util.Objects;
 @Entity
 @Table(name = "taxpayer", schema = "test_bd", catalog = "postgres")
 public class TaxpayerEntity {
-    private long id;
+    private Long id;
     private String name;
     private String surname;
     private String secname;
     private Date date;
-    private Collection<DuesEntity> duesById;
-    private Collection<IncomeEntity> incomesById;
+    private DuesEntity duesById;
+    private IncomeEntity incomesById;
     private Collection<JobEntity> jobsById;
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -85,21 +85,21 @@ public class TaxpayerEntity {
         return Objects.hash(id, name, surname, secname, date);
     }
 
-    @OneToMany(mappedBy = "taxpayerByIdTaxpayer")
-    public Collection<DuesEntity> getDuesById() {
+    @OneToOne(mappedBy = "taxpayerByIdTaxpayer")
+    public DuesEntity getDuesById() {
         return duesById;
     }
 
-    public void setDuesById(Collection<DuesEntity> duesById) {
+    public void setDuesById(DuesEntity duesById) {
         this.duesById = duesById;
     }
 
-    @OneToMany(mappedBy = "taxpayerByIdTaxpayer")
-    public Collection<IncomeEntity> getIncomesById() {
+    @OneToOne(mappedBy = "taxpayerByIdTaxpayer")
+    public IncomeEntity getIncomesById() {
         return incomesById;
     }
 
-    public void setIncomesById(Collection<IncomeEntity> incomesById) {
+    public void setIncomesById(IncomeEntity incomesById) {
         this.incomesById = incomesById;
     }
 

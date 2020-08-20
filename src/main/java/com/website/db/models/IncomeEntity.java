@@ -6,24 +6,26 @@ import java.util.Objects;
 @Entity
 @Table(name = "income", schema = "test_bd", catalog = "postgres")
 public class IncomeEntity {
-    private long id;
+    private Long id;
     private Double amount;
     private Long idTaxpayer;
+    private Long idBank;
     private TaxpayerEntity taxpayerByIdTaxpayer;
+    private BankEntity bankByIdBank;
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "amount", nullable = true, precision = 0)
+    @Column(name = "amount", nullable = false, columnDefinition = "0.0")
     public Double getAmount() {
         return amount;
     }
@@ -33,13 +35,23 @@ public class IncomeEntity {
     }
 
     @Basic
-    @Column(name = "id_taxpayer", nullable = true, insertable = false, updatable = false)
+    @Column(name = "id_taxpayer", nullable = false, insertable = false, updatable = false)
     public Long getIdTaxpayer() {
         return idTaxpayer;
     }
 
     public void setIdTaxpayer(Long idTaxpayer) {
         this.idTaxpayer = idTaxpayer;
+    }
+
+    @Basic
+    @Column(name = "id_bank", nullable = true, insertable = false, updatable = false)
+    public Long getIdBank() {
+        return idBank;
+    }
+
+    public void setIdBank(Long idBank) {
+        this.idBank = idBank;
     }
 
     @Override
@@ -49,15 +61,16 @@ public class IncomeEntity {
         IncomeEntity that = (IncomeEntity) o;
         return id == that.id &&
                 Objects.equals(amount, that.amount) &&
-                Objects.equals(idTaxpayer, that.idTaxpayer);
+                Objects.equals(idTaxpayer, that.idTaxpayer) &&
+                Objects.equals(idBank, that.idBank);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, idTaxpayer);
+        return Objects.hash(id, amount, idTaxpayer, idBank);
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_taxpayer", referencedColumnName = "id")
     public TaxpayerEntity getTaxpayerByIdTaxpayer() {
         return taxpayerByIdTaxpayer;
@@ -65,5 +78,15 @@ public class IncomeEntity {
 
     public void setTaxpayerByIdTaxpayer(TaxpayerEntity taxpayerByIdTaxpayer) {
         this.taxpayerByIdTaxpayer = taxpayerByIdTaxpayer;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "id_bank", referencedColumnName = "id")
+    public BankEntity getBankByIdBank() {
+        return bankByIdBank;
+    }
+
+    public void setBankByIdBank(BankEntity bankByIdBank) {
+        this.bankByIdBank = bankByIdBank;
     }
 }
