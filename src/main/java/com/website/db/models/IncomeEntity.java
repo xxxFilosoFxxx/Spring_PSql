@@ -15,7 +15,7 @@ public class IncomeEntity {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -35,7 +35,7 @@ public class IncomeEntity {
     }
 
     @Basic
-    @Column(name = "id_taxpayer", nullable = false, insertable = false, updatable = false)
+    @Column(name = "id_taxpayer", nullable = true)
     public Long getIdTaxpayer() {
         return idTaxpayer;
     }

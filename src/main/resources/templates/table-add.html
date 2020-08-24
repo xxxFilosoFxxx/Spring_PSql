@@ -18,10 +18,19 @@
 <div class="container lg-5 mb-5">
     <h1>Добавление данных пользователя</h1>
     <form action="/table/add" method="post">
-        <input type="text" name="name" placeholder="Введите Имя" class="form-control"> <br>
-        <input type="text" name="surname" placeholder="Введите Фамилию" class="form-control"> <br>
-        <input type="text" name="secname" placeholder="Введите Отчество" class="form-control"> <br>
-        <h3>Сегодняшняя дата поставится автоматически</h3>
+        <div>
+            <input type="text" name="name1" placeholder="Введите Имя" class="form-control"> <br>
+            <input type="text" name="surname" placeholder="Введите Фамилию" class="form-control"> <br>
+            <input type="text" name="secname" placeholder="Введите Отчество" class="form-control"> <br>
+            <h4>Сегодняшняя дата поставится автоматически</h4>
+        </div>
+        <br>
+        <hr>
+        <div>
+            <input type="text" name="name2" placeholder="Введите название работы" class="form-control"> <br>
+            <input type="text" name="place" placeholder="Введите место работы" class="form-control"> <br>
+        </div>
+
         <button type="submit" class="btn btn-success">Сохранить данные</button>
     </form>
 </div>

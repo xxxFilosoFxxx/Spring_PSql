@@ -11,4 +11,7 @@ import java.util.Collection;
 public interface DuesRepository extends CrudRepository<DuesEntity, Long> {
     @Query("SELECT d FROM DuesEntity d WHERE d.idTaxpayer = :idTaxpayer")
     Collection<DuesEntity> findByIdTaxpayer(@Param("idTaxpayer") Long id);
+
+    @Query("SELECT d.idInstitutions FROM DuesEntity d WHERE d.idTaxpayer = :idTaxpayer")
+    Long findByIdInstitutions(@Param("idTaxpayer") Long id);
 }

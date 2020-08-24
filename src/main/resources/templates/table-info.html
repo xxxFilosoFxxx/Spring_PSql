@@ -16,104 +16,232 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container-fluid">
-    <div th:each="element : ${taxpayer}" class="alert alert-info">
-        <div class="col">
-            <div class="text-center">
-                <div class="col">
-                    <p>Name:</p>
-                    <h4 th:text="${element.name}"/>
+    <div th:each="element : ${taxpayer}">
+        <table class="table table-hover">
+            <caption> из таблицы Taxpayer
+                <form th:action="'/table/' + ${element.id} + '/remove'" method="post">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </caption>
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Secname</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" th:text="${element.name}"></th>
+                <td th:text="${element.surname}"></td>
+                <td th:text="${element.secname}"></td>
+                <td th:text="${element.date}"></td>
+            </tr>
+            </tbody>
+        </table>
+<!--        <div class="col">-->
+<!--            <div class="text-center">-->
+<!--                <div class="col">-->
+<!--                    <p>Name:</p>-->
+<!--                    <h4 th:text="${element.name}"/>-->
 
-                    <p>Surname:</p>
-                    <h4 th:text="${element.surname}"/>
+<!--                    <p>Surname:</p>-->
+<!--                    <h4 th:text="${element.surname}"/>-->
 
-                    <p>Secname:</p>
-                    <h4 th:text="${element.secname}"/>
+<!--                    <p>Secname:</p>-->
+<!--                    <h4 th:text="${element.secname}"/>-->
 
-                    <p>Date:</p>
-                    <h4 th:text="${element.date}"/>
-                </div>
-            </div>
+<!--                    <p>Date:</p>-->
+<!--                    <h4 th:text="${element.date}"/>-->
+<!--                </div>-->
+<!--            </div>-->
 
 <!--            <div class="col">-->
-<!--                <a th:href="'/table/job/' + ${element.id} + '/edit'" class="btn btn-warning ">Редактировать</a><br><br>-->
-<!--                <form th:action="'/table/job/' + ${element.id} + '/remove'" method="post">-->
+<!--                <form th:action="'/table/' + ${element.id} + '/remove'" method="post">-->
 <!--                    <button class="btn btn-warning" type="submit">Удалить</button>-->
 <!--                </form>-->
 <!--            </div>-->
-        </div>
+<!--        </div>-->
     </div>
 
-    <div th:each="element : ${job}" class="alert alert-info">
-        <div class="col">
-            <div class="text-center">
-                <div class="col">
-                    <p>Name:</p>
-                    <h4 th:text="${element.name}"/>
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-hover">
+                <caption> из таблицы Job</caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="element : ${job}">
+                    <th scope="row" th:text="${element.name}"></th>
+                    <td th:text="${element.place}"></td>
+                    <td>
+                        <form th:action="'/table/' + ${element.id} + '/remove/job'" method="post">
+                            <button class="btn btn-danger" type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
 
-                    <p>place:</p>
-                    <h4 th:text="${element.place}"/>
+            </table>
 
-                    <p>Id taxpayer:</p>
-                    <h4 th:text="${element.idTaxpayer}"/>
-                </div>
-            </div>
+            <!--        <div class="col">-->
+            <!--            <div class="text-center">-->
+            <!--                <div class="col">-->
+            <!--                    <p>Name:</p>-->
+            <!--                    <h4 th:text="${element.name}"/>-->
 
-            <!--            <div class="col">-->
-            <!--                <a th:href="'/table/job/' + ${element.id} + '/edit'" class="btn btn-warning ">Редактировать</a><br><br>-->
-            <!--                <form th:action="'/table/job/' + ${element.id} + '/remove'" method="post">-->
-            <!--                    <button class="btn btn-warning" type="submit">Удалить</button>-->
-            <!--                </form>-->
+            <!--                    <p>place:</p>-->
+            <!--                    <h4 th:text="${element.place}"/>-->
+
+            <!--                    <p>Id taxpayer:</p>-->
+            <!--                    <h4 th:text="${element.idTaxpayer}"/>-->
+            <!--                </div>-->
             <!--            </div>-->
+            <!--        </div>-->
         </div>
-    </div>
 
-    <div th:each="element : ${income}" class="alert alert-info">
-        <div class="col">
-            <div class="text-center">
-                <div class="col">
-                    <p>Amount:</p>
-                    <h4 th:text="${element.amount}"/>
+        <div th:each="element : ${income}" class="col-3">
+            <table class="table table-hover">
+                <caption> из таблицы Income
+                    <form th:action="'/table/' + ${element.id} + '/remove/income'" method="post">
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                    </form>
+                </caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="${element.amount}"></th>
+                </tr>
+                </tbody>
+            </table>
 
-                    <p>Id taxpayer:</p>
-                    <h4 th:text="${element.idTaxpayer}"/>
+            <!--        <div class="col">-->
+            <!--            <div class="text-center">-->
+            <!--                <div class="col">-->
+            <!--                    <p>Amount:</p>-->
+            <!--                    <h4 th:text="${element.amount}"/>-->
 
-                    <p>Id bank:</p>
-                    <h4 th:text="${element.idBank}"/>
-                </div>
-            </div>
+            <!--                    <p>Id taxpayer:</p>-->
+            <!--                    <h4 th:text="${element.idTaxpayer}"/>-->
 
-            <!--            <div class="col">-->
-            <!--                <a th:href="'/table/job/' + ${element.id} + '/edit'" class="btn btn-warning ">Редактировать</a><br><br>-->
-            <!--                <form th:action="'/table/job/' + ${element.id} + '/remove'" method="post">-->
-            <!--                    <button class="btn btn-warning" type="submit">Удалить</button>-->
-            <!--                </form>-->
+            <!--                    <p>Id bank:</p>-->
+            <!--                    <h4 th:text="${element.idBank}"/>-->
+            <!--                </div>-->
             <!--            </div>-->
+            <!--        </div>-->
         </div>
-    </div>
 
-    <div th:each="element : ${dues}" class="alert alert-info">
-        <div class="col">
-            <div class="text-center">
-                <div class="col">
-                    <p>Income:</p>
-                    <h4 th:text="${element.incomeTaxes}"/>
+        <div th:each="element : ${dues}" class="col-3">
+            <table class="table table-hover">
+                <caption> из таблицы Dues
+                    <form th:action="'/table/' + ${element.id} + '/remove/dues'" method="post">
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                    </form>
+                </caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Income taxes</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="${element.incomeTaxes}"></th>
+                </tr>
+                </tbody>
+            </table>
 
-                    <p>Id taxpayer:</p>
-                    <h4 th:text="${element.idTaxpayer}"/>
+            <!--        <div class="col">-->
+            <!--            <div class="text-center">-->
+            <!--                <div class="col">-->
+            <!--                    <p>Income:</p>-->
+            <!--                    <h4 th:text="${element.incomeTaxes}"/>-->
 
-                    <p>Id institutions:</p>
-                    <h4 th:text="${element.idInstitutions}"/>
-                </div>
-            </div>
+            <!--                    <p>Id taxpayer:</p>-->
+            <!--                    <h4 th:text="${element.idTaxpayer}"/>-->
 
-            <!--            <div class="col">-->
-            <!--                <a th:href="'/table/job/' + ${element.id} + '/edit'" class="btn btn-warning ">Редактировать</a><br><br>-->
-            <!--                <form th:action="'/table/job/' + ${element.id} + '/remove'" method="post">-->
-            <!--                    <button class="btn btn-warning" type="submit">Удалить</button>-->
-            <!--                </form>-->
+            <!--                    <p>Id institutions:</p>-->
+            <!--                    <h4 th:text="${element.idInstitutions}"/>-->
+            <!--                </div>-->
             <!--            </div>-->
+            <!--        </div>-->
         </div>
     </div>
+
+    <div class="row">
+        <div th:each="element : ${banks}" class="col-9">
+            <table class="table table-hover">
+                <caption> из таблицы Bank
+                    <form th:action="'/table/' + ${element.id} + '/remove/banks'" method="post">
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                    </form>
+                </caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Cash</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                    <th scope="row" th:text="${element.cash}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:each="element : ${institusion}" class="col-3">
+            <table class="table table-hover">
+                <caption> из таблицы Institusion
+                    <form th:action="'/table/' + ${element.id} + '/remove/institusion'" method="post">
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                    </form>
+                </caption>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Institusion</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="${element.name}"></th>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <hr>
+    <div >
+        <table class="table table-hover">
+            <caption> из таблицы Banks</caption>
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">All banks tied to this institution</th>
+                <th scope="col">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element : ${institusionBanks}">
+                <th scope="row" th:text="${element.cash}"></th>
+                <td>
+                    <form th:action="'/table/' + ${element.id} + '/remove/banks'" method="post">
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <div th:insert="blocks/fronts :: fronts"></div>

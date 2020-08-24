@@ -42,7 +42,7 @@ ALTER TABLE test_bd.job OWNER TO postgres;
 -- DROP TABLE IF EXISTS test_bd.income CASCADE;
 CREATE TABLE test_bd.income(
     id bigint NOT NULL,
-	amount real DEFAULT 0.00,
+	amount float DEFAULT 0.00,
 	id_taxpayer bigint,
     id_bank bigint,
     CONSTRAINT income_pk PRIMARY KEY (id)
@@ -56,7 +56,7 @@ ALTER TABLE test_bd.income OWNER TO postgres;
 -- DROP TABLE IF EXISTS test_bd.dues CASCADE;
 CREATE TABLE test_bd.dues(
     id bigint NOT NULL,
-	income_taxes real DEFAULT 0.00, --(SELECT (amount*0.17) FROM test_bd.income, test_bd.dues  WHERE test_bd.income.id_taxpayer = test_bd.dues.id_taxpayer),
+	income_taxes float DEFAULT 0.00, --(SELECT (amount*0.17) FROM test_bd.income, test_bd.dues  WHERE test_bd.income.id_taxpayer = test_bd.dues.id_taxpayer),
 	id_taxpayer bigint,
     id_institutions bigint,
     CONSTRAINT dues_pk PRIMARY KEY (id)
@@ -158,7 +158,7 @@ ALTER TABLE test_bd.bank ADD CONSTRAINT institutions_fk FOREIGN KEY (id_institut
 -- ALTER TABLE test_bd.dues DROP CONSTRAINT IF EXISTS institutions_fk CASCADE;
 ALTER TABLE test_bd.dues ADD CONSTRAINT institutions_fk FOREIGN KEY (id_institutions)
     REFERENCES test_bd.institutions (id) MATCH FULL
-    ON DELETE SET NULL ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: dues_uq1 | type: CONSTRAINT --

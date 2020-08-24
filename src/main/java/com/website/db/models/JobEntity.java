@@ -16,7 +16,7 @@ public class JobEntity {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -46,7 +46,7 @@ public class JobEntity {
     }
 
     @Basic
-    @Column(name = "id_taxpayer", nullable = false, insertable = false, updatable = false)
+    @Column(name = "id_taxpayer", nullable = true)
     public Long getIdTaxpayer() {
         return idTaxpayer;
     }
@@ -80,7 +80,7 @@ public class JobEntity {
         this.banksById = banksById;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_taxpayer", referencedColumnName = "id")
     public TaxpayerEntity getTaxpayerByIdTaxpayer() {
         return taxpayerByIdTaxpayer;
@@ -88,5 +88,13 @@ public class JobEntity {
 
     public void setTaxpayerByIdTaxpayer(TaxpayerEntity taxpayerByIdTaxpayer) {
         this.taxpayerByIdTaxpayer = taxpayerByIdTaxpayer;
+    }
+
+    public JobEntity() {}
+
+    public JobEntity(String name, String place)
+    {
+        this.name = name;
+        this.place = place;
     }
 }

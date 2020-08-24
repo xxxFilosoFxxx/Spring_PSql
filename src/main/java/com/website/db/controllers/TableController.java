@@ -21,28 +21,7 @@ public class TableController {
     public String table(Model model) throws SQLException {
         Iterable<TaxpayerEntity> taxplayers = taxpayerRepository.findAll();
         model.addAttribute("taxplayers", taxplayers);
-
-//        Iterable<Income> incomes = incomeRepository.findAll();
-//        model.addAttribute("income", incomes);
-
-//        Optional<Taxpayer> taxpayer = taxpayerRepository.findById(taxpayerId);
-//        ArrayList<Taxpayer> res = new ArrayList<>();
-//        taxpayer.ifPresent(res::add);
-//        model.addAttribute("taxpayer", res);
         return "table";
-    }
-
-    @GetMapping("/table/add")
-    public String tableAdd(Model model) {
-        return "table-add";
-    }
-
-    @PostMapping("/table/add")
-    public String tablePostAdd(@RequestParam String name, @RequestParam String surname, @RequestParam String secname,
-                               Model model) throws SQLException {
-        TaxpayerEntity taxpayer = new TaxpayerEntity(name, surname, secname);
-        taxpayerRepository.save(taxpayer);
-        return "redirect:/table";
     }
 
     @GetMapping("/table/{id}/edit")
@@ -66,6 +45,13 @@ public class TableController {
         taxpayer.setSurname(surname);
         taxpayer.setSecname(secname);
         taxpayerRepository.save(taxpayer);
+        return "redirect:/table";
+    }
+
+    @PostMapping("/table/{id}/remove")
+    public String tableJobPostRemove(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
+        TaxpayerEntity taxpayer = taxpayerRepository.findById(taxpayerId).orElseThrow();
+        taxpayerRepository.delete(taxpayer);
         return "redirect:/table";
     }
 }

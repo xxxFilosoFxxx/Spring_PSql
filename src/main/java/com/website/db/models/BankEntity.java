@@ -17,7 +17,7 @@ public class BankEntity {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long getId() {
         return id;
     }
@@ -37,7 +37,7 @@ public class BankEntity {
     }
 
     @Basic
-    @Column(name = "id_job", nullable = false, insertable = false, updatable = false)
+    @Column(name = "id_job", nullable = true)
     public Long getIdJob() {
         return idJob;
     }
@@ -47,7 +47,7 @@ public class BankEntity {
     }
 
     @Basic
-    @Column(name = "id_institutions", nullable = true, insertable = false, updatable = false)
+    @Column(name = "id_institutions", nullable = true)
     public Long getIdInstitutions() {
         return idInstitutions;
     }

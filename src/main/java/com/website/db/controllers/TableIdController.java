@@ -1,13 +1,7 @@
 package com.website.db.controllers;
 
-import com.website.db.models.DuesEntity;
-import com.website.db.models.IncomeEntity;
-import com.website.db.models.JobEntity;
-import com.website.db.models.TaxpayerEntity;
-import com.website.db.repo.DuesRepository;
-import com.website.db.repo.IncomeRepository;
-import com.website.db.repo.JobRepository;
-import com.website.db.repo.TaxpayerRepository;
+import com.website.db.models.*;
+import com.website.db.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +30,12 @@ public class TableIdController {
     @Autowired
     private DuesRepository duesRepository;
 
+    @Autowired
+    private BankRepository bankRepository;
+
+    @Autowired
+    private InstitusionsRepository institusionsRepository;
+
     @GetMapping("/table/{id}")
     public String tableJobInfo(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         if(!taxpayerRepository.existsById(taxpayerId)) {
@@ -56,14 +56,20 @@ public class TableIdController {
         Collection<DuesEntity> dues = duesRepository.findByIdTaxpayer(taxpayerId);
         model.addAttribute("dues", dues);
 
+        Long id_bank = incomeRepository.findByIdBank(taxpayerId);
+        Collection<BankEntity> banks = bankRepository.findByIdIncomeAndBank(id_bank);
+        model.addAttribute("banks", banks);
+
+        Long id_institusion = duesRepository.findByIdInstitutions(taxpayerId);
+        Collection<InstitutionsEntity> institutions = institusionsRepository.findByIdDuesAndInstitutions(id_institusion);
+        model.addAttribute("institusion", institutions);
+
+        // Отдельно вывести все банки, привязанные к учреждениям
+        Collection<BankEntity> institusionBanks = bankRepository.findByIdAndBank(id_institusion);
+        model.addAttribute("institusionBanks", institusionBanks);
+
+
         return "table-info";
     }
 
-
-//    @PostMapping("/table/job/{id}/remove")
-//    public String tableJobPostRemove(@PathVariable(value = "id") long jobId, Model model) throws SQLException {
-//        Job job = jobRepository.findById(jobId).orElseThrow();
-//        jobRepository.delete(job);
-//        return "redirect:/table";
-//    }
 }

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="43,129" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,129" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <role name="admin"
       password="admin">
@@ -68,7 +68,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_taxpayer" index="1"/>
+		<object name="id_taxpayer" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -245,6 +245,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="test_bd.dues"
 	 src-required="false" dst-required="false"
 	upd-action="CASCADE"
-	del-action="SET NULL"/>
+	del-action="CASCADE"/>
 
 </dbmodel>
