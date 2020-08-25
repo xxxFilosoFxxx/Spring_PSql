@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface JobRepository extends CrudRepository<JobEntity, Long> {
-    @Query("SELECT j FROM JobEntity j WHERE j.idTaxpayer = :idTaxpayer")
+    @Query("SELECT j FROM JobEntity j WHERE j.taxpayerByIdTaxpayer.id = :idTaxpayer")
     Collection<JobEntity> findByIdTaxpayer(@Param("idTaxpayer") Long id);
 }

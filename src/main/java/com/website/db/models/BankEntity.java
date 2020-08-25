@@ -9,15 +9,12 @@ import java.util.Objects;
 public class BankEntity {
     private Long id;
     private long cash;
-    private Long idJob;
-    private Long idInstitutions;
     private JobEntity jobByIdJob;
     private InstitutionsEntity institutionsByIdInstitutions;
-    private IncomeEntity incomesById;
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -36,43 +33,21 @@ public class BankEntity {
         this.cash = cash;
     }
 
-    @Basic
-    @Column(name = "id_job", nullable = true)
-    public Long getIdJob() {
-        return idJob;
-    }
-
-    public void setIdJob(Long idJob) {
-        this.idJob = idJob;
-    }
-
-    @Basic
-    @Column(name = "id_institutions", nullable = true)
-    public Long getIdInstitutions() {
-        return idInstitutions;
-    }
-
-    public void setIdInstitutions(Long idInstitutions) {
-        this.idInstitutions = idInstitutions;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankEntity that = (BankEntity) o;
         return id == that.id &&
-                cash == that.cash &&
-                Objects.equals(idJob, that.idJob) &&
-                Objects.equals(idInstitutions, that.idInstitutions);
+                cash == that.cash;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cash, idJob, idInstitutions);
+        return Objects.hash(id, cash);
     }
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_job", referencedColumnName = "id")
     public JobEntity getJobByIdJob() {
         return jobByIdJob;
@@ -82,7 +57,7 @@ public class BankEntity {
         this.jobByIdJob = jobByIdJob;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_institutions", referencedColumnName = "id")
     public InstitutionsEntity getInstitutionsByIdInstitutions() {
         return institutionsByIdInstitutions;
@@ -92,12 +67,9 @@ public class BankEntity {
         this.institutionsByIdInstitutions = institutionsByIdInstitutions;
     }
 
-    @OneToOne(mappedBy = "bankByIdBank")
-    public IncomeEntity getIncomesById() {
-        return incomesById;
-    }
+    public BankEntity() {}
 
-    public void setIncomesById(IncomeEntity incomesById) {
-        this.incomesById = incomesById;
+    public BankEntity(long cash) {
+        this.cash = cash;
     }
 }

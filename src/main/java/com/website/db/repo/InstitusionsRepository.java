@@ -10,6 +10,6 @@ import java.util.Collection;
 
 public interface InstitusionsRepository extends CrudRepository<InstitutionsEntity, Long> {
     @Query("SELECT i FROM InstitutionsEntity  i, DuesEntity d " +
-           "WHERE i.id = :idInstitution AND d.idInstitutions = :idInstitution")
+           "WHERE i.id = :idInstitution AND d.institutionsByIdInstitutions.id = :idInstitution")
     Collection<InstitutionsEntity> findByIdDuesAndInstitutions(@Param("idInstitution") Long id);
 }

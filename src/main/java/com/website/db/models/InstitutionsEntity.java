@@ -1,6 +1,7 @@
 package com.website.db.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -9,12 +10,12 @@ import java.util.Objects;
 public class InstitutionsEntity {
     private Long id;
     private String name;
-    private Collection<BankEntity> banksById;
+    private Collection<BankEntity> banksById = new ArrayList<>();
     private DuesEntity duesById;
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -56,6 +57,11 @@ public class InstitutionsEntity {
         this.banksById = banksById;
     }
 
+    public void addBank(BankEntity bankEntity) {
+        bankEntity.setInstitutionsByIdInstitutions(this);
+        this.banksById.add(bankEntity);
+    }
+
     @OneToOne(mappedBy = "institutionsByIdInstitutions")
     public DuesEntity getDuesById() {
         return duesById;
@@ -63,5 +69,16 @@ public class InstitutionsEntity {
 
     public void setDuesById(DuesEntity duesById) {
         this.duesById = duesById;
+    }
+
+    public void addDues(DuesEntity duesEntity) {
+        duesEntity.setInstitutionsByIdInstitutions(this);
+        this.duesById = duesEntity;
+    }
+
+    public InstitutionsEntity() {}
+
+    public InstitutionsEntity(String name) {
+        this.name = name;
     }
 }

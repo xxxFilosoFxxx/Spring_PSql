@@ -44,7 +44,6 @@ CREATE TABLE test_bd.income(
     id bigint NOT NULL,
 	amount float DEFAULT 0.00,
 	id_taxpayer bigint,
-    id_bank bigint,
     CONSTRAINT income_pk PRIMARY KEY (id)
 
 );
@@ -121,18 +120,6 @@ ALTER TABLE test_bd.bank ADD CONSTRAINT job_fk FOREIGN KEY (id_job)
 -- object: bank_uq | type: CONSTRAINT --
 -- ALTER TABLE test_bd.bank DROP CONSTRAINT IF EXISTS bank_uq CASCADE;
 ALTER TABLE test_bd.bank ADD CONSTRAINT bank_uq UNIQUE (id_job);
--- ddl-end --
-
--- object: bank_fk | type: CONSTRAINT --
--- ALTER TABLE test_bd.income DROP CONSTRAINT IF EXISTS bank_fk CASCADE;
-ALTER TABLE test_bd.income ADD CONSTRAINT bank_fk FOREIGN KEY (id_bank)
-    REFERENCES test_bd.bank (id) MATCH FULL
-    ON DELETE SET NULL ON UPDATE CASCADE;
--- ddl-end --
-
--- object: income_uq1 | type: CONSTRAINT --
--- ALTER TABLE test_bd.income DROP CONSTRAINT IF EXISTS income_uq1 CASCADE;
-ALTER TABLE test_bd.income ADD CONSTRAINT income_uq1 UNIQUE (id_bank);
 -- ddl-end --
 
 -- object: test_bd.institutions | type: TABLE --

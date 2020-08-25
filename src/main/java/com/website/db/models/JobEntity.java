@@ -10,13 +10,12 @@ public class JobEntity {
     private Long id;
     private String name;
     private String place;
-    private Long idTaxpayer;
     private BankEntity banksById;
     private TaxpayerEntity taxpayerByIdTaxpayer;
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -45,16 +44,6 @@ public class JobEntity {
         this.place = place;
     }
 
-    @Basic
-    @Column(name = "id_taxpayer", nullable = true)
-    public Long getIdTaxpayer() {
-        return idTaxpayer;
-    }
-
-    public void setIdTaxpayer(Long idTaxpayer) {
-        this.idTaxpayer = idTaxpayer;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,16 +51,15 @@ public class JobEntity {
         JobEntity jobEntity = (JobEntity) o;
         return id == jobEntity.id &&
                 Objects.equals(name, jobEntity.name) &&
-                Objects.equals(place, jobEntity.place) &&
-                Objects.equals(idTaxpayer, jobEntity.idTaxpayer);
+                Objects.equals(place, jobEntity.place);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, place, idTaxpayer);
+        return Objects.hash(id, name, place);
     }
 
-    @OneToOne(mappedBy = "jobByIdJob")
+    @OneToOne(mappedBy = "jobByIdJob", orphanRemoval = true, cascade = CascadeType.ALL)
     public BankEntity getBanksById() {
         return banksById;
     }
@@ -80,7 +68,12 @@ public class JobEntity {
         this.banksById = banksById;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    public void addBank(BankEntity bankEntity) {
+        bankEntity.setJobByIdJob(this);
+        this.banksById = bankEntity;
+    }
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_taxpayer", referencedColumnName = "id")
     public TaxpayerEntity getTaxpayerByIdTaxpayer() {
         return taxpayerByIdTaxpayer;
@@ -92,8 +85,7 @@ public class JobEntity {
 
     public JobEntity() {}
 
-    public JobEntity(String name, String place)
-    {
+    public JobEntity(String name, String place) {
         this.name = name;
         this.place = place;
     }

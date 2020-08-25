@@ -2,7 +2,9 @@ package com.website.db.models;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +17,7 @@ public class TaxpayerEntity {
     private Date date;
     private DuesEntity duesById;
     private IncomeEntity incomesById;
-    private Collection<JobEntity> jobsById;
+    private Collection<JobEntity> jobsById = new ArrayList<>();
 
     @Id
     @Column(name = "id", nullable = false)
@@ -85,7 +87,7 @@ public class TaxpayerEntity {
         return Objects.hash(id, name, surname, secname, date);
     }
 
-    @OneToOne(mappedBy = "taxpayerByIdTaxpayer")
+    @OneToOne(mappedBy = "taxpayerByIdTaxpayer", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     public DuesEntity getDuesById() {
         return duesById;
     }
@@ -94,7 +96,12 @@ public class TaxpayerEntity {
         this.duesById = duesById;
     }
 
-    @OneToOne(mappedBy = "taxpayerByIdTaxpayer")
+    public void addDues(DuesEntity duesEntity) {
+        duesEntity.setTaxpayerByIdTaxpayer(this);
+        this.duesById = duesEntity;
+    }
+
+    @OneToOne(mappedBy = "taxpayerByIdTaxpayer", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     public IncomeEntity getIncomesById() {
         return incomesById;
     }
@@ -103,13 +110,23 @@ public class TaxpayerEntity {
         this.incomesById = incomesById;
     }
 
-    @OneToMany(mappedBy = "taxpayerByIdTaxpayer")
+    public void addIncome(IncomeEntity incomeEntity) {
+        incomeEntity.setTaxpayerByIdTaxpayer(this);
+        this.incomesById = incomeEntity;
+    }
+
+    @OneToMany(mappedBy = "taxpayerByIdTaxpayer", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     public Collection<JobEntity> getJobsById() {
         return jobsById;
     }
 
     public void setJobsById(Collection<JobEntity> jobsById) {
         this.jobsById = jobsById;
+    }
+
+    public void addJob(JobEntity jobEntity) {
+        jobEntity.setTaxpayerByIdTaxpayer(this);
+        this.jobsById.add(jobEntity);
     }
 
     public TaxpayerEntity() {}
@@ -120,7 +137,6 @@ public class TaxpayerEntity {
         this.secname = secname;
         java.util.Date utilDate = new java.util.Date();
         this.date = convert(utilDate);
-
     }
 
     private Date convert(java.util.Date utilDate) {

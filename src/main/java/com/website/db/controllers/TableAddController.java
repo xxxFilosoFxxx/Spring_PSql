@@ -1,7 +1,6 @@
 package com.website.db.controllers;
 
-import com.website.db.models.JobEntity;
-import com.website.db.models.TaxpayerEntity;
+import com.website.db.models.*;
 import com.website.db.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,12 +39,31 @@ public class TableAddController {
     @PostMapping("/table/add")
     public String tablePostAdd(@RequestParam String name1, @RequestParam String surname, @RequestParam String secname,
                                @RequestParam String name2, @RequestParam String place,
+                               @RequestParam double amount,
+                               @RequestParam double income_taxes,
+                               @RequestParam String name3,
+                               @RequestParam long cash,
                                Model model) throws SQLException {
         TaxpayerEntity taxpayer = new TaxpayerEntity(name1, surname, secname);
-        taxpayerRepository.save(taxpayer);
 
         JobEntity job = new JobEntity(name2, place);
-        jobRepository.save(job);
+
+        IncomeEntity income = new IncomeEntity(amount);
+
+        DuesEntity dues = new DuesEntity(income_taxes);
+
+        InstitutionsEntity institutions = new InstitutionsEntity(name3);
+
+        BankEntity bank = new BankEntity(cash);
+
+        taxpayer.addJob(job);
+        taxpayer.addIncome(income);
+        taxpayer.addDues(dues);
+        job.addBank(bank);
+        institutions.addDues(dues);
+        institutions.addBank(bank);
+
+        taxpayerRepository.save(taxpayer);
 
         return "redirect:/table";
     }

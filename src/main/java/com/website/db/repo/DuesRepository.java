@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface DuesRepository extends CrudRepository<DuesEntity, Long> {
-    @Query("SELECT d FROM DuesEntity d WHERE d.idTaxpayer = :idTaxpayer")
+    @Query("SELECT d FROM DuesEntity d WHERE d.taxpayerByIdTaxpayer.id = :idTaxpayer")
     Collection<DuesEntity> findByIdTaxpayer(@Param("idTaxpayer") Long id);
 
-    @Query("SELECT d.idInstitutions FROM DuesEntity d WHERE d.idTaxpayer = :idTaxpayer")
+    @Query("SELECT d.institutionsByIdInstitutions.id FROM DuesEntity d WHERE d.taxpayerByIdTaxpayer.id = :idTaxpayer")
     Long findByIdInstitutions(@Param("idTaxpayer") Long id);
 }

@@ -56,16 +56,11 @@ public class TableIdController {
         Collection<DuesEntity> dues = duesRepository.findByIdTaxpayer(taxpayerId);
         model.addAttribute("dues", dues);
 
-        Long id_bank = incomeRepository.findByIdBank(taxpayerId);
-        Collection<BankEntity> banks = bankRepository.findByIdIncomeAndBank(id_bank);
-        model.addAttribute("banks", banks);
-
         Long id_institusion = duesRepository.findByIdInstitutions(taxpayerId);
         Collection<InstitutionsEntity> institutions = institusionsRepository.findByIdDuesAndInstitutions(id_institusion);
         model.addAttribute("institusion", institutions);
 
-        // Отдельно вывести все банки, привязанные к учреждениям
-        Collection<BankEntity> institusionBanks = bankRepository.findByIdAndBank(id_institusion);
+        Collection<BankEntity> institusionBanks = bankRepository.findByIdBank(id_institusion);
         model.addAttribute("institusionBanks", institusionBanks);
 
 

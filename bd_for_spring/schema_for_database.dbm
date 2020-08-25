@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1" last-position="0,129" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,33" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <role name="admin"
       password="admin">
@@ -91,14 +91,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_bank" index="3"/>
 		<object name="id_taxpayer" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="bank_fk" index="3"/>
 		<object name="income_uq" index="1"/>
-		<object name="income_uq1" index="4"/>
 		<object name="taxpayer_fk" index="0"/>
 	</customidxs>
 </table>
@@ -198,17 +195,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-required="false" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
-
-<relationship name="income_has_one_bank" type="rel11"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#6f6087"
-	 src-table="test_bd.bank"
-	 dst-table="test_bd.income"
-	 src-required="false" dst-required="false"
-	upd-action="CASCADE"
-	del-action="SET NULL"/>
 
 <table name="institutions">
 	<schema name="test_bd"/>
