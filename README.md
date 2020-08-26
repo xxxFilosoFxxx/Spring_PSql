@@ -6,4 +6,4 @@
 
 ![Image alt](Физическая%20и%20логическая%20схема%20бд.png)
 
-* **`Внимание:`** Скрипт создания таблиц лежит [здесь](https://github.com/xxxFilosoFxxx/Spring_PSql/tree/master/bd_for_spring), под названием **create_db_for_spring.sql**
+* **Внимание:** Скрипт создания таблиц лежит [здесь](https://github.com/xxxFilosoFxxx/Spring_PSql/tree/master/bd_for_spring), под названием **create_db_for_spring.sql**
