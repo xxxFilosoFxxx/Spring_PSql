@@ -16,10 +16,10 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container-fluid">
-    <div th:each="element : ${taxpayer}">
+    <div th:each="element_tax : ${taxpayer}">
         <table class="table table-hover">
             <caption> из таблицы Taxpayer
-                <form th:action="'/table/' + ${element.id} + '/remove'" method="post">
+                <form th:action="'/table/' + ${element_tax.id} + '/remove'" method="post">
                     <button class="btn btn-danger" type="submit">Удалить</button>
                 </form>
             </caption>
@@ -33,100 +33,118 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row" th:text="${element.name}"></th>
-                <td th:text="${element.surname}"></td>
-                <td th:text="${element.secname}"></td>
-                <td th:text="${element.date}"></td>
+                <th scope="row" th:text="${element_tax.name}"></th>
+                <td th:text="${element_tax.surname}"></td>
+                <td th:text="${element_tax.secname}"></td>
+                <td th:text="${element_tax.date}"></td>
             </tr>
             </tbody>
         </table>
-    </div>
 
-    <div class="row">
-        <div class="col-6">
-            <table class="table table-hover">
-                <caption> из таблицы Job</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Place</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="element : ${job}">
-                    <th scope="row" th:text="${element.name}"></th>
-                    <td th:text="${element.place}"></td>
-                </tr>
-                </tbody>
 
-            </table>
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-hover">
+                    <caption> из таблицы Job</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Place</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="element : ${job}">
+                        <th scope="row" th:text="${element.name}"></th>
+                        <td th:text="${element.place}"></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div th:each="element : ${income}" class="col-3">
+                <table class="table table-hover">
+                    <caption> из таблицы Income</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Amount</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" th:text="${element.amount}"></th>
+                        <td>
+                            <a th:href="'/table/' + ${element_tax.id} + '/edit/income'" class="btn btn-info" role="button">Изменить »</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div th:each="element : ${dues}" class="col-3">
+                <table class="table table-hover">
+                    <caption> из таблицы Dues</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Income taxes</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" th:text="${element.incomeTaxes}"></th>
+                        <td>
+                            <a th:href="'/table/' + ${element_tax.id} + '/edit/dues'" class="btn btn-info" role="button">Изменить »</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div th:each="element : ${income}" class="col-3">
-            <table class="table table-hover">
-                <caption> из таблицы Income</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row" th:text="${element.amount}"></th>
-                </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div th:each="element : ${institusion}" class="col-6">
+                <table class="table table-hover">
+                    <caption> из таблицы Institusion</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Institusion</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" th:text="${element.name}"></th>
+                        <td>
+                            <a th:href="'/table/' + ${element_tax.id} + '/edit/institusion'" class="btn btn-info" role="button">Изменить »</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-6">
+                <table class="table table-hover">
+                    <caption> из таблицы Bank</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Cash in banks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="element : ${institusionBanks}">
+                        <th scope="row" th:text="${element.cash}"></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div th:each="element : ${dues}" class="col-3">
-            <table class="table table-hover">
-                <caption> из таблицы Dues</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Income taxes</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row" th:text="${element.incomeTaxes}"></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="row">
-        <div th:each="element : ${institusion}" class="col-6">
-            <table class="table table-hover">
-                <caption> из таблицы Institusion</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Institusion</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row" th:text="${element.name}"></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div th:each="element : ${institusionBanks}" class="col-6">
-            <table class="table table-hover">
-                <caption> из таблицы Bank</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Cash in banks</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr >
-                    <th scope="row" th:text="${element.cash}"></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <a th:href="'/table/' + ${element_tax.id} + '/add/jobAndBank'" class="btn btn-success" role="button">Добавить Job и Bank »</a>
     </div>
 
 </div>

@@ -6,30 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
+import java.util.Collection;
 
 @Controller
 public class TableAddController {
     @Autowired
     private TaxpayerRepository taxpayerRepository;
-
-    @Autowired
-    private JobRepository jobRepository;
-
-    @Autowired
-    private IncomeRepository incomeRepository;
-
-    @Autowired
-    private DuesRepository duesRepository;
-
-    @Autowired
-    private BankRepository bankRepository;
-
-    @Autowired
-    private InstitusionsRepository institusionsRepository;
 
     @GetMapping("/table/add")
     public String tableAdd(Model model) {
@@ -62,6 +49,32 @@ public class TableAddController {
         job.addBank(bank);
         institutions.addDues(dues);
         institutions.addBank(bank);
+
+        taxpayerRepository.save(taxpayer);
+
+        return "redirect:/table";
+    }
+
+    @GetMapping("/table/{id}/add/jobAndBank")
+    public String tableJobBankAdd(@PathVariable(value = "id") long taxpayerId,
+                                  Model model) throws SQLException {
+        return "table-add-job-bank";
+    }
+
+    @PostMapping("/table/{id}/add/jobAndBank")
+    public String tablePostJobBankAdd(@PathVariable(value = "id") long taxpayerId,
+                                      @RequestParam String name, @RequestParam String place,
+                                      @RequestParam long cash,
+                                      Model model) throws SQLException {
+        TaxpayerEntity taxpayer = taxpayerRepository.findById(taxpayerId).orElseThrow();
+
+        JobEntity job = new JobEntity(name, place);
+
+        BankEntity bank = new BankEntity(cash);
+
+        taxpayer.addJob(job);
+        job.addBank(bank);
+        taxpayer.getDuesById().getInstitutionsByIdInstitutions().addBank(bank);
 
         taxpayerRepository.save(taxpayer);
 

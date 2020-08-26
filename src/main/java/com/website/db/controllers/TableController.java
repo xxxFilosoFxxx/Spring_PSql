@@ -25,7 +25,7 @@ public class TableController {
     }
 
     @GetMapping("/table/{id}/edit")
-    public String tableJobEdit(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
+    public String tableEdit(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         if(!taxpayerRepository.existsById(taxpayerId)) {
             return "redirect:/table";
         }
@@ -38,7 +38,7 @@ public class TableController {
     }
 
     @PostMapping("/table/{id}/edit")
-    public String tableJobPostEdit(@PathVariable(value = "id") long taxpayerId, @RequestParam String name,
+    public String tablePostEdit(@PathVariable(value = "id") long taxpayerId, @RequestParam String name,
                                    @RequestParam String surname, @RequestParam String secname, Model model) throws SQLException {
         TaxpayerEntity taxpayer = taxpayerRepository.findById(taxpayerId).orElseThrow();
         taxpayer.setName(name);
@@ -49,7 +49,7 @@ public class TableController {
     }
 
     @PostMapping("/table/{id}/remove")
-    public String tableJobPostRemove(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
+    public String tablePostRemove(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         TaxpayerEntity taxpayer = taxpayerRepository.findById(taxpayerId).orElseThrow();
         taxpayerRepository.delete(taxpayer);
         return "redirect:/table";

@@ -2,10 +2,10 @@
 <html  xmlns:th="http://www.thymeleaf.org"
        lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Edit taxpayer</title>
+
+    <title>Edit dues</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -16,13 +16,10 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container lg-5 mb-5">
-    <h1>Редактирование ресурсов</h1>
-    <div th:each="element : ${taxpayer}">
+    <h1>Редактирование Налогов</h1>
+    <div th:each="element : ${dues}">
         <form method="post">
-            <input type="text" th:value="${element.name}" name="name" placeholder="Введите Имя" class="form-control"> <br>
-            <input type="text" th:value="${element.surname}" name="surname" placeholder="Введите Фамилию" class="form-control"> <br>
-            <input type="text" th:value="${element.secname}" name="secname" placeholder="Введите Отчество" class="form-control"> <br>
-            <h3>Дата останется прежней</h3>
+            <input type="text" th:value="${element.incomeTaxes}" name="income_taxes" placeholder="Введите нужные налоги" class="form-control"> <br>
             <button type="submit" class="btn btn-success">Обновить</button>
         </form>
     </div>

@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Edit taxpayer</title>
+    <title>Add Job and Bank</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -16,16 +16,21 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container lg-5 mb-5">
-    <h1>Редактирование ресурсов</h1>
-    <div th:each="element : ${taxpayer}">
-        <form method="post">
-            <input type="text" th:value="${element.name}" name="name" placeholder="Введите Имя" class="form-control"> <br>
-            <input type="text" th:value="${element.surname}" name="surname" placeholder="Введите Фамилию" class="form-control"> <br>
-            <input type="text" th:value="${element.secname}" name="secname" placeholder="Введите Отчество" class="form-control"> <br>
-            <h3>Дата останется прежней</h3>
-            <button type="submit" class="btn btn-success">Обновить</button>
-        </form>
-    </div>
+    <h1>Добавление таблиц Job и Bank</h1>
+    <form method="post">
+        <h3>Добавьте данные о работе</h3>
+        <div>
+            <input type="text" name="name" placeholder="Введите название работы" class="form-control"> <br>
+            <input type="text" name="place" placeholder="Введите место работы" class="form-control"> <br>
+        </div>
+        <br>
+        <hr>
+        <h3>Добавьте данные о сумме в банке</h3>
+        <div>
+            <input type="text" name="cash" placeholder="Введите сумму банка" class="form-control"> <br>
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить данные</button>
+    </form>
 </div>
 
 <div th:insert="blocks/fronts :: fronts"></div>

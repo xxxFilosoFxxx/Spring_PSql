@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class TableIdController {
     private InstitusionsRepository institusionsRepository;
 
     @GetMapping("/table/{id}")
-    public String tableJobInfo(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
+    public String tableInfo(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         if(!taxpayerRepository.existsById(taxpayerId)) {
             return "redirect:/table";
         }
@@ -63,8 +61,6 @@ public class TableIdController {
         Collection<BankEntity> institusionBanks = bankRepository.findByIdBank(id_institusion);
         model.addAttribute("institusionBanks", institusionBanks);
 
-
         return "table-info";
     }
-
 }
