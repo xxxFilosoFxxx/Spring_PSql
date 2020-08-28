@@ -153,3 +153,35 @@ ALTER TABLE test_bd.dues ADD CONSTRAINT institutions_fk FOREIGN KEY (id_institut
 ALTER TABLE test_bd.dues ADD CONSTRAINT dues_uq1 UNIQUE (id_institutions);
 -- ddl-end --
 
+-- object: function
+-- ALTER TABLE test_bd.search_name_taxpayer;
+CREATE OR REPLACE FUNCTION test_bd.search_name_taxpayer(text)
+    RETURNS SETOF test_bd.taxpayer
+    LANGUAGE 'sql'
+
+    COST 100
+    VOLATILE
+    ROWS 1000
+AS $BODY$SELECT * FROM test_bd.taxpayer
+         WHERE test_bd.taxpayer.name = $1;$BODY$;
+
+ALTER FUNCTION test_bd.search_name_taxpayer(text)
+    OWNER TO postgres;
+-- ddl-end --
+
+-- object: view
+-- ALTER TABLE test_bd.name_oleg;
+CREATE OR REPLACE VIEW test_bd.name_oleg
+AS
+SELECT taxpayer.id,
+       taxpayer.name,
+       taxpayer.surname,
+       taxpayer.secname,
+       taxpayer.date
+FROM test_bd.taxpayer
+WHERE taxpayer.name::text = 'Oleg'::text;
+
+ALTER TABLE test_bd.name_oleg
+    OWNER TO postgres;
+-- ddl-end --
+

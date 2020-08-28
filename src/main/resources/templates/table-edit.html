@@ -19,11 +19,13 @@
     <h1>Редактирование ресурсов</h1>
     <div th:each="element : ${taxpayer}">
         <form method="post">
-            <input type="text" th:value="${element.name}" name="name" placeholder="Введите Имя" class="form-control"> <br>
-            <input type="text" th:value="${element.surname}" name="surname" placeholder="Введите Фамилию" class="form-control"> <br>
-            <input type="text" th:value="${element.secname}" name="secname" placeholder="Введите Отчество" class="form-control"> <br>
-            <h3>Дата останется прежней</h3>
-            <button type="submit" class="btn btn-success">Обновить</button>
+            <div class="form-group">
+                <input type="text" th:value="${element.name}" name="name" placeholder="Введите Имя" class="form-control"> <br>
+                <input type="text" th:value="${element.surname}" name="surname" placeholder="Введите Фамилию" class="form-control"> <br>
+                <input type="text" th:value="${element.secname}" name="secname" placeholder="Введите Отчество" class="form-control"> <br>
+                <h3>Дата останется прежней</h3>
+                <button type="submit" class="btn btn-success">Обновить</button>
+            </div>
         </form>
     </div>
 </div>

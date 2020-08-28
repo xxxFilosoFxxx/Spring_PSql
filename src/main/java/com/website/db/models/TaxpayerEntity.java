@@ -2,10 +2,10 @@ package com.website.db.models;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
+
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
 
 @Entity
 @Table(name = "taxpayer", schema = "test_bd", catalog = "postgres")
