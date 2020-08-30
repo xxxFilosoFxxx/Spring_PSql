@@ -3,6 +3,7 @@ package com.website.db.controllers;
 import com.website.db.models.TaxpayerEntity;
 import com.website.db.repo.TaxpayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class TableController {
         return "table";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/table/{id}/edit")
     public String tableEdit(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         if(!taxpayerRepository.existsById(taxpayerId)) {
@@ -37,6 +39,7 @@ public class TableController {
         return "table-edit";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/{id}/edit")
     public String tablePostEdit(@PathVariable(value = "id") long taxpayerId, @RequestParam String name,
                                    @RequestParam String surname, @RequestParam String secname, Model model) throws SQLException {
@@ -48,6 +51,7 @@ public class TableController {
         return "redirect:/table";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/{id}/remove")
     public String tablePostRemove(@PathVariable(value = "id") long taxpayerId, Model model) throws SQLException {
         TaxpayerEntity taxpayer = taxpayerRepository.findById(taxpayerId).orElseThrow();

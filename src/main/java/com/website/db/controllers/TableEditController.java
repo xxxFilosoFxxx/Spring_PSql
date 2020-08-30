@@ -3,6 +3,7 @@ package com.website.db.controllers;
 import com.website.db.models.*;
 import com.website.db.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class TableEditController {
 //        return "table-edit-income";
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/{id}/edit/income")
     public String tablePostIncomeEdit(@PathVariable(value = "id") long taxpayerId, @RequestParam Double amount,
                                       Model model) throws SQLException  {
@@ -63,6 +65,7 @@ public class TableEditController {
 //        return "table-edit-dues";
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/{id}/edit/dues")
     public String tablePostDuesEdit(@PathVariable(value = "id") long taxpayerId, @RequestParam Double income_taxes,
                                     Model model) throws SQLException  {
@@ -84,6 +87,7 @@ public class TableEditController {
 //        return "table-edit-institution";
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/{id}/edit/institusion")
     public String tablePostInstitusionEdit(@PathVariable(value = "id") long taxpayerId, @RequestParam String name,
                                            Model model) throws SQLException  {

@@ -3,6 +3,7 @@ package com.website.db.controllers;
 import com.website.db.models.*;
 import com.website.db.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,13 @@ public class TableAddController {
     @Autowired
     private TaxpayerRepository taxpayerRepository;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/table/add")
     public String tableAdd(Model model) {
         return "table-add";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/add")
     public String tablePostAdd(@RequestParam String name1, @RequestParam String surname, @RequestParam String secname,
                                @RequestParam String name2, @RequestParam String place,
@@ -55,12 +58,14 @@ public class TableAddController {
         return "redirect:/table";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/table/{id}/add/jobAndBank")
     public String tableJobBankAdd(@PathVariable(value = "id") long taxpayerId,
                                   Model model) throws SQLException {
         return "table-add-job-bank";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/table/{id}/add/jobAndBank")
     public String tablePostJobBankAdd(@PathVariable(value = "id") long taxpayerId,
                                       @RequestParam String name, @RequestParam String place,

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
        lang="en">
 <head>
     <!-- Required meta tags -->
@@ -56,7 +57,7 @@
         <td>
             <a th:href="'/table/' + ${element.id}" class="btn btn-info" role="button">Подробнее »</a>
             <!--                        <a class="btn btn-info show-add" role="button">Подробнее »</a>-->
-            <a th:href="'/table/' + ${element.id} + '/edit'" class="btn btn-info" role="button">Изменить »</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="'/table/' + ${element.id} + '/edit'" class="btn btn-info" role="button">Изменить »</a>
         </td>
     </tr>
     </tbody>
