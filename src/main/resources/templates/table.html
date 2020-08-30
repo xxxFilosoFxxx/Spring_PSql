@@ -19,9 +19,6 @@
 
     <link rel="stylesheet" th:href="@{/static/CSS/style.css}">
     <link rel="stylesheet" th:href="@{/static/CSS/font-awesome.min.css}">
-
-    <script src="../static/js/table.js"></script>
-    <script src="../static/js/modal-window.js"></script>
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
@@ -43,10 +40,10 @@
 <table id="table" class="table table-hover table-bordered">
     <thead class="thead-dark">
     <tr>
-        <th>Name <i class="fa fa-sort" onclick="sortTable('table', 0)"></i> </th>
-        <th>Surname <i class="fa fa-sort" onclick="sortTable('table', 1)"></i> </th>
-        <th>Secname <i class="fa fa-sort" onclick="sortTable('table', 2)"></i> </th>
-        <th>Date <i class="fa fa-sort" onclick="sortTable('table', 3)"></i> </th>
+        <th>Name <i class="fa fa-sort" onclick="sortTable('table', 0)" style="cursor: pointer"></i> </th>
+        <th>Surname <i class="fa fa-sort" onclick="sortTable('table', 1)" style="cursor: pointer"></i> </th>
+        <th>Secname <i class="fa fa-sort" onclick="sortTable('table', 2)" style="cursor: pointer"></i> </th>
+        <th>Date <i class="fa fa-sort" onclick="sortTable('table', 3)" style="cursor: pointer"></i> </th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -65,29 +62,9 @@
     </tbody>
 </table>
 
-<!-- Modal -->
-<!--<div class="modal fade news-add" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">-->
-<!--        <div class="modal-content">-->
-<!--            <form action="/table" method="post">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title">Подробные данные пользователя</h5>-->
-<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                        <span aria-hidden="true">&times;</span>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <p>//TODO: Редактирование</p>-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div th:insert="blocks/fronts :: fronts"></div>
+
+<script src="../static/js/table.js"></script>
 
 </body>
 </html>

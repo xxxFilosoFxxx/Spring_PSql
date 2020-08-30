@@ -78,6 +78,6 @@ public class TableAddController {
 
         taxpayerRepository.save(taxpayer);
 
-        return "redirect:/table";
+        return "redirect:/table/{id}";
     }
 }
