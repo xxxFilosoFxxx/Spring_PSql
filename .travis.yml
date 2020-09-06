@@ -1,0 +1,17 @@
+sudo: false
+
+language: java
+
+jdk: oraclejdk13
+
+java:
+  - 1.13
+
+#branches:
+#  only:
+#    - master
+
+install:
+  - chmod +x ./gradlew
+
+script: ./gradlew build
