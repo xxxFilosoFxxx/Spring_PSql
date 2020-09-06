@@ -1,5 +1,7 @@
 # Проект использует Spring Framework и PostgreSql
 
+[![Build Status](https://travis-ci.com/xxxFilosoFxxx/Spring_PSql.svg?branch=master)](https://travis-ci.com/xxxFilosoFxxx/Spring_PSql)
+
 ## Проект собран с помощью Gradle версии 6.3
 
 - **`Ниже представлена логическая и физическая схема базы данных PostgreSQL:`**
