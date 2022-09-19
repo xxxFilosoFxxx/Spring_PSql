@@ -1,25 +1,25 @@
-# Проект использует Spring Framework и PostgreSql
+# The project uses Spring Framework and PostgreSql
 
 [![Build Status](https://travis-ci.com/xxxFilosoFxxx/Spring_PSql.svg?branch=master)](https://travis-ci.com/xxxFilosoFxxx/Spring_PSql)
 
-## Проект собран с помощью Gradle версии 6.3
+## The project is built using Gradle version 6.3
 
-- **`Ниже представлена логическая и физическая схема базы данных PostgreSQL:`**
+- **`Below is the logical and physical layout of a PostgreSQL database:`**
 
 ![Image alt](Физическая%20и%20логическая%20схема%20бд.png)
 
-- **Внимание:** Скрипт создания таблиц лежит [здесь](https://github.com/xxxFilosoFxxx/Spring_PSql/tree/master/bd_for_spring), под названием **create_db_for_spring.sql**
+- **Attention:** The script for creating tables lies [this](https://github.com/xxxFilosoFxxx/Spring_PSql/tree/master/bd_for_spring), entitled **create_db_for_spring.sql**
 
-## Установка для Linux
+## For Linux
 
 - `git clone https://github.comxxxFilosoFxxx/Spring_PSql.git`
 - `chmod +x gradlew`
 - `./gradlew build` 
 
-## Использование 
+## Using
 
-**После создания таблиц, откройте pgAdmin и подключитесь к серверу по порту 5432**
+**After creating the tables, open pgAdmin and connect to the server on port 5432**
 
-- Теперь вы можете запустить `./gradlew run`
-- Вэб-приложение доступно по адресу: `https://localhost:8081`
+- Now you can run `./gradlew run`
+- The web application is available at: `https://localhost:8081`
 
